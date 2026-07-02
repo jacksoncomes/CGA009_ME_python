@@ -1,4 +1,0 @@
-numpy>=1.23
-scipy>=1.9
-# optional, only for reproduce_saha_results.ipynb:
-# jupyter
