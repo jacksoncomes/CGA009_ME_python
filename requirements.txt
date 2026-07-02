@@ -1,4 +1,8 @@
+# Core model (palustris_me.py, validate.py) — this is all you need to run the ME-model.
+# The HiGHS LP solver ships inside SciPy, so there is no separate solver to install.
 numpy>=1.23
 scipy>=1.9
-# optional, only for reproduce_saha_results.ipynb:
-# jupyter
+
+# Only for the reproduce_saha_results.ipynb notebook:
+pandas>=1.5
+jupyter>=1.0
