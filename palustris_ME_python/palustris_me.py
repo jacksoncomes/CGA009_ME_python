@@ -28,7 +28,7 @@ without qMINOS/GAMS).
 
 Validated to reproduce the Saha-lab Table-2 growth rates exactly (see reproduce_saha_results.ipynb).
 
-Author of this Python port: (your name).  Original model: Saha lab, ssbio/palustris_ME_model.
+Author of this Python port: Jackson Comes.  Original model: Saha lab, ssbio/palustris_ME_model.
 """
 from __future__ import annotations
 import os
