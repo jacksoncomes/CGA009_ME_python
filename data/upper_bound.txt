@@ -1,4 +1,15 @@
 /
+*=====================================================================================
+* WARNING -- THE CARBON-EXCHANGE (NUTRIENT) ROWS BELOW ARE STALE. DO NOT TRUST THEM.
+* This file is authoritative for ALL non-carbon upper bounds, but the carbon uptake rows
+* here (coumarate EX_cpd00604_e0_B = 2, and acetate/butyrate/succinate = 0) are NOT the
+* values the paper ran. GROUND TRUTH for the carbon uptakes is the authors' GAMS-Convert
+* model instances (PYTHON/Table_2/*_max_growth.py, mirrored in ../gams_reference/):
+*     coumarate 2.54   acetate 6.47   butyrate 3.69   succinate 4.66
+* palustris_me.py loads this whole file, then set_medium() OVERRIDES the carbon-EX rows
+* with the values above (from the SUBSTRATES dict). Uptake 2.0 would give mu_max 1.16, not
+* the published 1.21. Lines starting with '*' are ignored by the _bounds() parser.
+*=====================================================================================
 *******************NUTRIENTS***************************
 *BUTYRATE
 'EX_cpd00211_e0_B'	0
