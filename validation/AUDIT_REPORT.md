@@ -109,8 +109,8 @@ truncated. Harden before ingesting new data for the 2-cell model.
   spot-check, not the resolution (the true cliff is ~1e-3-sharp).
 
 ## Track C — Exact match to GAMS (core question)
-Reference = the authors' GAMS-Convert dumps (`gams_reference/`), solved with HiGHS; reproduce with
-`python gams_reference/compare_to_gams.py`.
+Reference = the authors' GAMS-Convert dumps (`validation/gams_reference/`), solved with HiGHS;
+reproduce with `python validation/gams_reference/compare_to_gams.py`.
 
 | substrate | GAMS-dump obj | port obj (shipped) | |Δobj| shipped | |Δobj| last-wins | flux mismatches (>1e-3 / >1e-6 of 5479) | published µ vs port max-µ |
 |---|---|---|---|---|---|---|

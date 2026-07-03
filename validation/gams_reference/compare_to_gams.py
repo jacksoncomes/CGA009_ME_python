@@ -21,7 +21,8 @@ from scipy.sparse import coo_matrix
 from scipy.optimize import linprog
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.dirname(HERE))
+# repo root is two levels up: validation/gams_reference/ -> validation/ -> root
+sys.path.insert(0, os.path.dirname(os.path.dirname(HERE)))
 import palustris_me as pm
 
 # published mu / ATP maintenance per substrate, and the port's substrate key

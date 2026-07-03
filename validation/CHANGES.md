@@ -25,7 +25,7 @@ Fix: collapse duplicates in `parse_model()` keeping the **last** occurrence (a d
 | succinate | 2.22×10⁻⁵ | **7.3×10⁻¹²** |
 
 The bug was the *entire* source of the residual: the port now reproduces each GAMS instance to
-machine precision. Reproduce with `python gams_reference/compare_to_gams.py`.
+machine precision. Reproduce with `python validation/gams_reference/compare_to_gams.py`.
 
 ## 2. New test: µ-dependence of the coupling coefficients
 `test_me_audit.py :: test_mu_dependence_matches_six_algebraic_forms`. Every prior check verified the
@@ -79,3 +79,40 @@ port already uses.
 - The µ-dependence test matters more once µ is swept over a range; extend it to any new coupling forms.
 - Latent (not triggered today): the `_bounds`/`sij`/`_prep_rhs` regexes don't accept a `-` in a
   scientific-notation exponent; harden before ingesting new data.
+
+---
+
+# Repo restructure — `chore/tidy-repo` (no behavior changes)
+
+Reorganization only: files moved with `git mv` (history preserved), relative paths fixed, caches
+ignored, and GitHub language classification corrected. No model logic, test assertions, numerical
+values, or medium/maintenance data changed. All 26 tests still pass; `validate.py` still exits 0.
+
+**Moves**
+
+| from | to |
+|---|---|
+| `test_me_audit.py` | `tests/test_me_audit.py` |
+| `pytest.ini` | `tests/pytest.ini` |
+| `AUDIT_REPORT.md` | `validation/AUDIT_REPORT.md` |
+| `CHANGES.md` | `validation/CHANGES.md` |
+| `gams_reference/` | `validation/gams_reference/` |
+
+`palustris_me.py`, `validate.py`, `reproduce_saha_results.ipynb`, `README.md`, `requirements.txt`,
+and `data/` stay at the repo root.
+
+**Path fixes (moves would otherwise break these)**
+- `validation/gams_reference/compare_to_gams.py`: repo-root import now resolves two levels up.
+- `tests/test_me_audit.py`: GAMS-reference path now points to `../validation/gams_reference`.
+- Doc command examples updated to `validation/gams_reference/compare_to_gams.py`.
+- `validate.py` needed no change — it imports the root `palustris_me`, which resolves `data/`
+  relative to its own location (both unchanged).
+
+**New files**
+- `conftest.py` (repo root): puts the root on `sys.path` and registers the `slow` marker so a bare
+  `pytest` at the repo root discovers and runs the suite. `tests/pytest.ini` gains `pythonpath = ..`
+  for the case where pytest is invoked from inside `tests/`.
+- `.gitignore`: adds `.pytest_cache/`, `.ipynb_checkpoints/`, `*.egg-info/`, `.venv/`, `env/`
+  (was just `__pycache__/`, `*.pyc`). No caches were tracked in the repo.
+- `.gitattributes`: marks `data/**` `linguist-vendored` and the four GAMS-Convert dumps +
+  `dictionary.txt` `linguist-generated`, so the language bar reflects the hand-written Python.
