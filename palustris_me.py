@@ -45,7 +45,13 @@ GMS = os.path.join(DATA, "palustris_ME.gms")
 SCALARS = {"kcat": 234000.0, "kt": 108.0, "r0": 4.5, "cmrna2": 16072.50, "cribo2": 1976.8}
 ATP_C = "cpd00002[c0]"
 
-# Saha-lab Table-2 conditions: name -> (uptake exchange, uptake bound, ATP maintenance, published mu)
+# Saha-lab Table-2 conditions: name -> (uptake exchange, uptake bound, ATP maintenance, published mu).
+# GROUND TRUTH for the uptake bounds and ATP maintenance below is the authors' own GAMS-Convert model
+# instances (upstream PYTHON/Table_2/*_max_growth.py; mirrored in gams_reference/): those fix the uptake
+# variable to 2.54/6.47/3.69/4.66 and the maintenance to 85.4/54/56.7/45.7. `data/upper_bound.txt` lists
+# coumarate uptake 2.0 and the other carbons 0 -- a STALE snapshot that is NOT what the paper ran; it is
+# deliberately overridden at runtime by set_medium() (which sets vub[carbon EX]). Do not "fix" the file
+# values into this dict from upper_bound.txt -- uptake 2.0 yields mu_max 1.16, not the published 1.21.
 SUBSTRATES = {
     "coumarate": ("EX_cpd00604_e0_B", 2.54, 85.4, 1.21),
     "acetate":   ("EX_cpd00029_e0_B", 6.47, 54.0, 0.77),
@@ -101,11 +107,16 @@ def parse_model():
         m = re.match(r"'([^']+)'\.'([^']+)'\s+(-?\.?[\d.eE+]+)", ln.strip())
         if m:
             S[(m.group(1), m.group(2))] = float(m.group(3))
-    # ALL growth-rate-dependent S overwrites from the .gms (statements may span lines)
+    # ALL growth-rate-dependent S overwrites from the .gms (statements may span lines).
+    # GAMS assignment is LAST-WINS: 26 (met,rxn) targets are assigned twice, and the later
+    # value overwrites the earlier one. We therefore collapse duplicates keeping the *last*
+    # occurrence -- NOT summing them. (Summing, via coo_matrix.tocsr on duplicate coords, was
+    # the audited bug: it doubled those 26 coefficients. See AUDIT_REPORT.md.)
     text = open(GMS).read()
-    coupling = []
+    last = {}
     for met, rxn, rhs in re.findall(r"S\('([^']+)','([^']+)'\)\s*=\s*(.+?);", text, re.DOTALL):
-        coupling.append((met, rxn, compile(_prep_rhs(rhs), "<rhs>", "eval")))
+        last[(met, rxn)] = compile(_prep_rhs(rhs), "<rhs>", "eval")   # last assignment wins
+    coupling = [(met, rxn, code) for (met, rxn), code in last.items()]
     stopped = set(re.findall(r"v\.(?:up|lo)\('([^']+)'\)\s*=\s*0\s*;", text))
     return dict(rxns=rxns, mets=mets, lb=lb, ub=ub, S=S, coupling=coupling, stopped=stopped)
 
