@@ -223,8 +223,8 @@ def test_matches_gams_convert_objective(case, mu, atp, portname):
     fix the port's min-sum-v objective equals the GAMS instance to MACHINE PRECISION (~1e-9);
     the few remaining flux differences are alternate-optima swaps (see the degeneracy test)."""
     import os, sys
-    sys.path.insert(0, os.path.join(os.path.dirname(__file__), "gams_reference"))
-    if not os.path.exists(os.path.join(os.path.dirname(__file__), "gams_reference", case + ".py")):
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "validation", "gams_reference"))
+    if not os.path.exists(os.path.join(os.path.dirname(__file__), "..", "validation", "gams_reference", case + ".py")):
         pytest.skip("GAMS reference dump not present")
     import compare_to_gams as gr
     r = gr.compare(case)
@@ -245,8 +245,8 @@ def test_flux_differences_are_true_alternate_optima(case, mu, atp, portname):
     all four custom constraints + bounds) and gives the SAME objective. Two feasible vertices,
     identical optimum => alternate optima of the identical LP."""
     import os, sys
-    sys.path.insert(0, os.path.join(os.path.dirname(__file__), "gams_reference"))
-    if not os.path.exists(os.path.join(os.path.dirname(__file__), "gams_reference", case + ".py")):
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "validation", "gams_reference"))
+    if not os.path.exists(os.path.join(os.path.dirname(__file__), "..", "validation", "gams_reference", case + ".py")):
         pytest.skip("GAMS reference dump not present")
     import compare_to_gams as gr
     from scipy.optimize import linprog
@@ -277,7 +277,7 @@ def test_last_wins_fix_makes_gams_match_exact():
     """The 26-entry duplicate-summing bug is the SOLE source of the ~1e-4 objective residual:
     with GAMS last-wins semantics the port reproduces the GAMS instance to ~1e-10."""
     import os, sys
-    sys.path.insert(0, os.path.join(os.path.dirname(__file__), "gams_reference"))
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "validation", "gams_reference"))
     import compare_to_gams as gr
     varlist, A, b, lo, hi = gr.parse_dump("coumarate.py")
     from scipy.optimize import linprog

@@ -1,0 +1,12 @@
+# Keep GitHub's language bar reflecting the actual hand-written Python, not the bulky
+# redistributed GAMS model files or the machine-generated GAMS-Convert dumps.
+
+# Original Saha-lab GAMS input files (sij, bounds, reactions, metabolites, .gms)
+data/** linguist-vendored
+
+# GAMS-Convert output instances (auto-generated ~20k-line Pyomo dumps) + the variable map
+validation/gams_reference/coumarate.py linguist-generated
+validation/gams_reference/acetate.py   linguist-generated
+validation/gams_reference/buytrate.py  linguist-generated
+validation/gams_reference/succinate.py linguist-generated
+validation/gams_reference/dictionary.txt linguist-generated

@@ -114,4 +114,9 @@ validate.py                     command-line version of the reproduction test
 requirements.txt                numpy, scipy
 data/                           original Saha-lab GAMS files (sij, reactions, metabolites,
                                 bounds, palustris_ME.gms) — redistributed for reproducibility
+tests/                          pytest suite (test_me_audit.py) + pytest.ini
+validation/                     audit + GAMS cross-check
+    AUDIT_REPORT.md, CHANGES.md
+    gams_reference/             authors' GAMS-Convert instances + compare_to_gams.py
 ```
+Run the tests with a bare `pytest` at the repo root.
