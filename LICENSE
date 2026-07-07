@@ -25,11 +25,16 @@ SOFTWARE.
 The MIT grant above covers the Python re-implementation authored in this
 repository (palustris_me.py, the test/validation code, and documentation).
 
-Third-party / derived material, NOT covered by the MIT grant above:
+Third-party material, NOT covered by the MIT grant above:
 
   data/ and validation/gams_reference/ are the original R. palustris ME-model
   of Chowdhury, Alsiyabi & Saha (Microbiology Spectrum 2022,
-  doi:10.1128/spectrum.01463-22; source: github.com/ssbio/palustris_ME_model),
-  redistributed here for reproducibility. These files remain the work of the
-  Saha lab and retain that project's terms. If you redistribute them, confirm
-  the upstream license permits it and attribute the original authors.
+  doi:10.1128/spectrum.01463-22; source: github.com/ssbio/palustris_ME_model).
+
+  As of July 2026 the upstream repository carries NO license file, so its authors
+  have not formally granted rights to copy, modify, or redistribute these files.
+  They remain the work of the Saha lab and are included here in good faith, for
+  scientific reproducibility, with full citation of the paper above. GitHub's
+  Terms of Service (D.4) allow other GitHub users to view and fork this repository;
+  beyond that, if you wish to redistribute or build on the Saha-lab files, please
+  cite the paper and contact the original authors for explicit permission.

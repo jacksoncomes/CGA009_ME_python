@@ -28,10 +28,13 @@ All modeling credit belongs to the original authors.
 
 ## License
 The Python re-implementation and analysis code here are released under the [MIT License](LICENSE)
-© 2026 Jackson Comes. The redistributed Saha-lab model files (`data/`, `validation/gams_reference/`)
-are **not** covered by that grant — they remain the work of the Saha lab and retain their upstream
-terms (see the note at the bottom of `LICENSE`). If you use this port, please cite the Saha lab's
-original model (above) alongside this repository.
+© 2026 Jackson Comes. The Saha-lab model files (`data/`, `validation/gams_reference/`) are **not**
+covered by that grant. As of July 2026 the upstream repository
+([ssbio/palustris_ME_model](https://github.com/ssbio/palustris_ME_model)) carries **no license**, so
+its authors have not formally granted redistribution rights; those files are included here in good
+faith for scientific reproducibility, with citation. If you use this port, please cite the Saha lab's
+original model (above); if you plan to redistribute or build on their files beyond forking this repo,
+contact the original authors. See the note at the bottom of [`LICENSE`](LICENSE).
 
 ## Why this exists
 The published model is written in **GAMS** and its growth-maximization is a **nonlinear program**.
