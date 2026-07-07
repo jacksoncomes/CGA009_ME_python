@@ -26,6 +26,13 @@ This repository is **only a solver-independent Python re-implementation** of tha
 built from the original GAMS data files (redistributed here under `data/` for reproducibility).
 All modeling credit belongs to the original authors.
 
+## License
+The Python re-implementation and analysis code here are released under the [MIT License](LICENSE)
+© 2026 Jackson Comes. The redistributed Saha-lab model files (`data/`, `validation/gams_reference/`)
+are **not** covered by that grant — they remain the work of the Saha lab and retain their upstream
+terms (see the note at the bottom of `LICENSE`). If you use this port, please cite the Saha lab's
+original model (above) alongside this repository.
+
 ## Why this exists
 The published model is written in **GAMS** and its growth-maximization is a **nonlinear program**.
 The authors' workflow requires running GAMS (or a commercial solver) once per growth rate, which
